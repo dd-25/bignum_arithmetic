@@ -82,7 +82,7 @@ bool equalto(struct array *num1,struct array *num2)
 struct array* takeinput()
 {
     printf("Enter the number of digits in number\n");
-    struct array *num = (struct array*)calloc(1,sizeof(struct array));
+    struct array *num = (struct array*)calloc(1,sizeof(struct array)); // to handle trialing zeroes
     scanf("%d",&(num->size));
     num->arr = (int*)calloc(num->size,sizeof(int));
     printf("Enter the digits with space\n");
@@ -227,7 +227,7 @@ struct division* division(struct array *num1,struct array* num2)
     struct division *div = (struct division*)calloc(1,sizeof(struct division));
     div->quotient = (struct array*)calloc(1,sizeof(struct array));
     div->remainder = (struct array*)calloc(1,sizeof(struct array));
-    div->quotient->size = 1;
+    div->quotient->size = 1; // for default quotient to be zero
     div->quotient->arr = (int*)calloc(1,sizeof(int));
     div->remainder = num1;
     struct array *qadd = (struct array*)calloc(1,sizeof(struct array));

@@ -264,7 +264,7 @@ struct number* multiplication(struct number* num1,struct number* num2)
     struct node *curr1 = num1->head;
     struct node *curr2 = num2->head;
     struct number *temp[num2->size];
-    for(int i=0;i<num1->size+num2->size;i++)
+    for(int i=0;i<num2->size;i++)
     {
         temp[i] = (struct number*)malloc(sizeof(struct number));
         temp[i]->size = 0;
