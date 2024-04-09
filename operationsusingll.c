@@ -152,9 +152,10 @@ struct number* takeinput()
     {
         int x;
         scanf("%d",&x);
-        insert_end(&num,x);
+        insert_begin(&num,x);
     }
     nm->size = n;
+    reverse(&num);
     nm->head = num;
     trim(nm);
     return nm;
@@ -175,7 +176,7 @@ struct number *addition(struct number *num1,struct number *num2)
     {
         sum = curr1->data+curr2->data+carry;
         carry = sum/10;
-        insert_end(&add->head,sum%10);
+        insert_begin(&add->head,sum%10);
         add->size++;
         curr1 = curr1->next;
         curr2 = curr2->next;
@@ -184,7 +185,7 @@ struct number *addition(struct number *num1,struct number *num2)
     {
         sum = curr1->data+carry;
         carry = sum/10;
-        insert_end(&add->head,sum%10);
+        insert_begin(&add->head,sum%10);
         add->size++;
         curr1 = curr1->next;
     }
@@ -192,18 +193,17 @@ struct number *addition(struct number *num1,struct number *num2)
     {
         sum = curr2->data+carry;
         carry = sum/10;
-        insert_end(&add->head,sum%10);
+        insert_begin(&add->head,sum%10);
         add->size++;
         curr2 = curr2->next;
     }
     if(carry)
     {
-        insert_end(&add->head,carry);
+        insert_begin(&add->head,carry);
         add->size++;
     }
     reverse(&num1->head);
     reverse(&num2->head);
-    reverse(&add->head);
     trim(add);
     return add;
 }
@@ -233,21 +233,20 @@ struct number* subtraction(struct number *num1,struct number *num2)
         }
         else
         borrow = 0;
-        insert_end(&sub->head,diff);
+        insert_begin(&sub->head,diff);
         sub->size++;
         curr1 = curr1->next;
         curr2 = curr2->next;
     }
     while(curr1!=NULL)
     {
-        insert_end(&sub->head,curr1->data-borrow);
+        insert_begin(&sub->head,curr1->data-borrow);
         borrow = 0;
         sub->size++;
         curr1 = curr1->next;
     }
     reverse(&num1->head);
     reverse(&num2->head);
-    reverse(&sub->head);
     trim(sub);
     return sub;
 }
@@ -277,20 +276,20 @@ struct number* multiplication(struct number* num1,struct number* num2)
         int carry = 0;
         for(int k=0;k<j;k++)
         {
-            insert_end(&temp[j]->head,0);
+            insert_begin(&temp[j]->head,0);
             temp[j]->size++;
         }
         while(curr1!=NULL)
         {
             int mult = curr2->data*curr1->data+carry;
             carry = mult/10;
-            insert_end(&temp[j]->head,mult%10);
+            insert_begin(&temp[j]->head,mult%10);
             temp[j]->size++;
             curr1 = curr1->next;
         }
         while(carry)
         {
-            insert_end(&temp[j]->head,carry%10);
+            insert_begin(&temp[j]->head,carry%10);
             temp[j]->size++;
             carry /= 10;
         }
@@ -299,7 +298,6 @@ struct number* multiplication(struct number* num1,struct number* num2)
     }
     for(int i=0;i<num2->size;i++)
     {
-        reverse(&temp[i]->head);
         mul = addition(mul,temp[i]);
     }
     reverse(&num1->head);

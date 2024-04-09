@@ -116,7 +116,7 @@ struct array* addition(struct array* num1, struct array* num2)
     while(i>=0 && j>=0)
     {
         sum = num1->arr[i]+num2->arr[j];
-        add->arr[k] = sum%10 + carry;
+        add->arr[k] = (sum + carry)%10;
         carry = sum/10;
         i--;
         j--;
@@ -125,7 +125,7 @@ struct array* addition(struct array* num1, struct array* num2)
     while(i>=0)
     {
         sum = num1->arr[i];
-        add->arr[k] = sum%10 + carry;
+        add->arr[k] = (sum + carry)%10;
         carry = sum/10;
         i--;
         k--;
@@ -133,7 +133,7 @@ struct array* addition(struct array* num1, struct array* num2)
     while(j>=0)
     {
         sum = num2->arr[j];
-        add->arr[k] = sum%10 + carry;
+        add->arr[k] = (sum + carry)%10;
         carry = sum/10;
         j--;
         k--;
@@ -151,7 +151,7 @@ struct array* subtraction(struct array *num1,struct array *num2)
     {
         sub->size = 0;
         free(sub->arr);
-        printf("Cannot Subract\n");
+        printf("Cannot Subtract\n");
         return sub;
     }
     int i = num1->size-1;
@@ -207,7 +207,7 @@ struct array* multiplication(struct array *num1,struct array *num2)
             j--;
             k--;
         }
-        while(carry1)
+        while(carry1 || carry2)
         {
             int mult = carry1;
             carry1 = mult/10;
@@ -215,8 +215,6 @@ struct array* multiplication(struct array *num1,struct array *num2)
             carry2 = mul->arr[k]/10;
             mul->arr[k] %= 10;
         }
-        if(carry2)
-        mul->arr[k] = carry2;
         i--;
     }
     return trim(mul);

@@ -200,24 +200,23 @@ struct number* multiplication(struct number *num1,struct number *num2)
     {
         int i = num1->size-1;
         int k=num1->size+j;
-        int sum = 0;
         int carry1 = 0;
         int carry2 = 0;
         for(;i>=0;k--)
         {
             int mult = ((num1->str[i]-'0')*(num2->str[j]-'0'))+carry1;
             carry1 = mult/10;
-            sum = (mult%10)+carry2+(mul->str[k]-'0');
-            mul->str[k] = (sum%10) + '0';
-            carry2 = sum/10;
+            mul->str[k] = ((mult%10)+carry2+(mul->str[k]-'0'))+'0';
+            carry2 = (mul->str[k]-'0')/10;
+            mul->str[k] = ((mul->str[k]-'0')%10) + '0';
             i--;
         }
-        while(k>=0)
+        while(carry1 || carry2)
         {
-            sum = (mul->str[k]-'0')+carry2+carry1;
-            mul->str[k] = (sum%10) + '0';
+            mul->str[k] = ((mul->str[k]-'0')+carry2+carry1)+'0';
+            carry2 = (mul->str[k]-'0')/10;
+            mul->str[k] = ((mul->str[k]-'0')%10) + '0';
             carry1 /= 10;
-            carry2 = sum/10;
             k--;
         }
     }
